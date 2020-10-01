@@ -1,12 +1,12 @@
 {
-  "name": "express-mesto",
+  "name": "react-mesto-api-full",
   "version": "1.0.0",
   "description": "## Директории",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint": "eslint --fix --ext .js ../../express-mesto-full"
+    "lint": "eslint --fix --ext .js ."
   },
   "repository": {
     "type": "git",

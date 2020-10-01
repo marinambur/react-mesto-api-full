@@ -1,6 +1,6 @@
 const { celebrate, Joi, CelebrateError } = require('celebrate');
 const validator = require('validator');
-
+// eslint-disable-next-line
 const urlValidation = (value) => {
   if (!validator.isURL(value)) {
     throw new CelebrateError('Некорректный URL');
@@ -30,7 +30,6 @@ const validateUser = celebrate({
     password: Joi.string().required().min(6),
   }),
 });
-
 
 const validateLogin = celebrate({
   body: Joi.object().keys({

@@ -1,7 +1,7 @@
 // middlewares/auth.js
-
+// eslint-disable-next-line
 const jwt = require('jsonwebtoken');
-
+// eslint-disable-next-line
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
