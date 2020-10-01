@@ -17,26 +17,26 @@ const {
   PORT = 3000,
 } = process.env;
 
-app.use(requestLogger);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-app.post('/signup', validateUser, createUser);
-app.post('/signin', validateLogin, login);
-
-app.use('/users', auth, userRouter);
-app.use('/cards', auth, cardRouter);
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
 });
+app.use(requestLogger);
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
+app.post('/signup', validateUser, createUser);
+app.post('/signin', validateLogin, login);
+app.use('/users', auth, userRouter);
+app.use('/cards', auth, cardRouter);
 app.all('*', (req, res, next) => {
   next(new NotFoundError('Запрашиваемый ресурс не найден'));
 });
