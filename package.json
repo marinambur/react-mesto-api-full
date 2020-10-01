@@ -1,0 +1,40 @@
+{
+  "name": "express-mesto",
+  "version": "1.0.0",
+  "description": "## Директории",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "eslint --fix --ext .js ../../express-mesto-full"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marinambur/express-mesto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marinambur/express-mesto/issues"
+  },
+  "homepage": "./",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "celebrate": "^13.0.3",
+    "express": "^4.17.1",
+    "express-winston": "^4.0.5",
+    "joi": "^17.2.1",
+    "mongoose": "^5.10.2",
+    "validator": "^13.1.17",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.4"
+  }
+}
