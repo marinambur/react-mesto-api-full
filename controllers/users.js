@@ -32,17 +32,13 @@ module.exports.getUsers = (req, res, next) => {
 
 module.exports.getUserById = (req, res, next) => {
   User.findById(req.params.id)
-    .then((user) => {
-      if (user) {
-        res.send(user);
-      }
+    .orFail()
+    .catch(() => {
+      throw new NotFoundError({ message: 'Нет пользователя с таким id' });
     })
-    .catch((err) => {
-      throw new NotFoundError({ message: `Пользователь с идентификатором ${err.message} не найден` });
-    })
+    .then((user) => res.send(user))
     .catch(next);
 };
-
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 

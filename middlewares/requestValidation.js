@@ -1,6 +1,6 @@
 const { celebrate, Joi, CelebrateError } = require('celebrate');
 const validator = require('validator');
-// eslint-disable-next-line
+
 const urlValidation = (value) => {
   if (!validator.isURL(value)) {
     throw new CelebrateError('Некорректный URL');
@@ -11,7 +11,7 @@ const urlValidation = (value) => {
 const validateCard = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().min(2).max(500),
+    avatar: Joi.string().custom(urlValidation).required(),
   }),
 });
 
@@ -25,7 +25,7 @@ const validateUser = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     about: Joi.string().required().min(2).max(20),
-    avatar: Joi.string().required().min(2).max(500),
+    avatar: Joi.string().custom(urlValidation).required(),
     email: Joi.string().required().email(),
     password: Joi.string().required().min(6),
   }),
