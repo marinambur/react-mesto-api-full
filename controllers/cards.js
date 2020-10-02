@@ -1,6 +1,7 @@
 const Card = require('../models/card');
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
+const ForbiddenError = require('../errors/ForbiddenError');
 
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
@@ -21,20 +22,13 @@ const getCards = (req, res, next) => {
 
 const deleteCardById = (req, res, next) => {
   const owner = req.user._id;
-  Card.findByIdAndRemove({ _id: req.params.id, owner })
+  Card.findOne({ _id: req.params.id })
+    .orFail(() => new NotFoundError('Нет карточки с таким id'))
     .then((card) => {
-      if (card) {
-        res.send(card);
-        return;
-      }
-      throw new NotFoundError({ message: 'Нет карточки с таким id' });
+      if (String(card.owner) !== owner) throw new ForbiddenError('Недостаточно прав для удаления этой карточки');
+      return Card.findByIdAndDelete(card._id);
     })
-    .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        throw new NotFoundError({ message: 'Нет карточки с таким id' });
-      }
-      throw new BadRequestError({ message: 'Необходима авторизация' });
-    })
+    .then((success) => res.send(success))
     .catch(next);
 };
 
