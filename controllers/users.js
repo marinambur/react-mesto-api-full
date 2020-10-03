@@ -5,6 +5,7 @@ const User = require('../models/user');
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const TokenError = require('../errors/TokenError');
+const EmailError = require('../errors/EmailError');
 
 module.exports.createUser = (req, res, next) => {
   const {
@@ -17,7 +18,12 @@ module.exports.createUser = (req, res, next) => {
       name,
       avatar,
       about,
-    }))// eslint-disable-next-line
+    }))
+    .catch((err) => {
+      if (err.code === 11000) {
+        throw new EmailError({ message: 'Пользователь с таким email уже зарегистрирован' });
+      } else next(err);
+    })// eslint-disable-next-line
     .then(({ _id, email }) => {
       res.status(201).send({ _id, email });
     })
