@@ -27,7 +27,7 @@ module.exports.createUser = (req, res, next) => {
     .then(({ _id, email }) => {
       res.status(201).send({ _id, email });
     })
-    .catch((err) => next(new BadRequestError(err)));
+    .catch(next);
 };
 
 module.exports.getUsers = (req, res, next) => {
