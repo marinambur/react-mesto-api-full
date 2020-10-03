@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 // eslint-disable-next-line
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const TokenError = require('../errors/TokenError');
 const EmailError = require('../errors/EmailError');
